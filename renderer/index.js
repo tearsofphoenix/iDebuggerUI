@@ -1,14 +1,12 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import reducer from './reducers';
-import App from './components/App.jsx';
+import 'babel-polyfill'
+import dva from 'dva'
+import router from './router'
+import viewModel from './models/view'
 
-const store = createStore(reducer);
+const app = dva({})
 
-render(
-  <Provider store={store}>
-    <App />
-  </Provider>
-, document.getElementById('root'));
+app.router(router)
+
+app.model(viewModel)
+
+app.start('#root')

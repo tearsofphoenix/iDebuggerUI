@@ -20,7 +20,7 @@ const FileTree = ({
       <div className="item-views">
         <div className="styleguide pane-item">
           <header className="styleguide-header">
-            <h5>File Directory</h5>
+            <h5>View Hierarchy</h5>
           </header>
           <main className="styleguide-sections">
 
@@ -54,11 +54,13 @@ const FileTree = ({
       <div className="item-views">
         <div className="styleguide pane-item">
           <header className="styleguide-header">
-            <h5>File Directory</h5>
+            <h5>View Hierarchy</h5>
           </header>
           <main className="styleguide-sections">
 
-            <div className="tree-view-resizer tool-panel" />
+            <div className="empty">
+              No Content
+            </div>
 
           </main>
         </div>

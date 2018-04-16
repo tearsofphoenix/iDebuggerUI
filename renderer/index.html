@@ -12,14 +12,14 @@
 		// Monaco uses a custom amd loader that over-rides node's require.
 		// Keep a reference to node's require so we can restore it after executing the amd loader file.
 		var nodeRequire = global.require;
-	</script>
-	<script>
+  </script>
+  <script>
 		// Save Monaco's amd require and restore Node's require
 		var amdRequire = global.require;
 		global.require = nodeRequire;
 	</script>
 
-	<script>
+  <script>
 		// require node modules before loader.js comes in
 		var path = require('path');
 		function uriFromPath(_path) {
@@ -48,7 +48,7 @@
 			});
 		});
 	</script>
-	<script src='./testScript.js'></script>
+  <script src='./testScript.js'></script>
   <script type='text/javascript'>
     if (process.env.NODE_ENV === 'development') {
       var script = document.createElement('script');

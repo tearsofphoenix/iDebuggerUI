@@ -1,5 +1,5 @@
 {
-  "name": "reactide",
+  "name": "iDebuggerUI",
   "version": "1.0.0",
   "description": "",
   "main": "./main/main.js",
@@ -9,9 +9,13 @@
     "dev-start": "cross-env NODE_ENV=development electron .",
     "dev": "webpack-dev-server --inline --content-base ./renderer"
   },
-  "author": "Mark Cruz, Jin Choi, Bita Djaghouri",
-  "license": "ISC",
+  "author": "Isaac Lex",
+  "license": "MIT",
   "dependencies": {
+    "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "dva": "^2.2.2",
     "electron": "^1.6.1",
     "electron-debug": "^1.1.0",
     "electron-localshortcut": "^1.1.0",
@@ -20,13 +24,16 @@
     "prop-types": "^15.5.8",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-redux": "^5.0.3",
+    "react-redux": "^5.0.7",
     "redux": "^3.6.0"
   },
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-core": "^6.23.1",
     "babel-loader": "^6.3.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.23.0",
     "babel-register": "^6.23.0",
@@ -40,6 +47,7 @@
     "electron-reload": "^1.1.0",
     "enzyme": "^2.8.0",
     "eslint": "^3.19.0",
+    "eslint-plugin-prettier": "^2.6.0",
     "expect": "^1.20.2",
     "mocha": "^3.2.0",
     "react-addons-test-utils": "^15.4.2",
