@@ -1,9 +1,11 @@
-import React from 'react';
-import FileTree from './FileTree';
-import TextEditorPane from './TextEditorPane';
-import DeletePrompt from './DeletePrompt';
-import MockComponentTree from './MockComponentTree';
-import MockComponentInspector from './MockComponentInspector'
+import React from 'react'
+import {connect} from 'dva'
+import ViewTree from './ViewTree'
+
+import TextEditorPane from '../components/TextEditorPane';
+import DeletePrompt from '../components/DeletePrompt';
+import MockComponentTree from '../components/MockComponentTree';
+import MockComponentInspector from '../components/MockComponentInspector'
 
 const { ipcRenderer } = require('electron');
 const { getTree } = require('../../lib/file-tree');
@@ -11,6 +13,7 @@ const fs = require('fs');
 const path = require('path');
 const { File, Directory } = require('../../lib/item-schema');
 
+@connect(({view}) => ({view}))
 export default class App extends React.Component {
   constructor() {
     super();
@@ -450,6 +453,12 @@ export default class App extends React.Component {
     });
   }
 
+  componentWillMount() {
+    this.props.dispatch({
+      type: 'view/getSnapshot'
+    })
+  }
+
   render() {
     return (
         <ride-workspace className="scrollbars-visible-always" onClick={ this.closeOpenDialogs }>
@@ -460,19 +469,7 @@ export default class App extends React.Component {
             <ride-pane-axis className="horizontal">
 
               <ride-pane style={ { flexGrow: 0, flexBasis: '300px' } }>
-                <FileTree
-                    dblClickHandler={ this.dblClickHandler }
-                    openCreateMenu={ this.openCreateMenu }
-                    openMenuId={ this.state.openMenuId }
-                    createMenuInfo={ this.state.createMenuInfo }
-                    createMenuHandler={ this.createMenuHandler }
-                    createItem={ this.createItem }
-                    fileTree={ this.state.fileTree }
-                    selectedItem={ this.state.selectedItem }
-                    clickHandler={ this.clickHandler }
-                    renameFlag={ this.state.renameFlag }
-                    renameHandler={ this.renameHandler }
-                />
+                <ViewTree />
                 { this.state.deletePromptOpen
                     ? <DeletePrompt
                         deletePromptHandler={ this.deletePromptHandler }

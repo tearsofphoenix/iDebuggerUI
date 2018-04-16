@@ -1,8 +1,4 @@
-import axios from 'axios'
-
-async function fetch() {
-  return axios.get('/api/snapshot')
-}
+import {fetch} from '../services/view'
 
 export default {
   namespace: 'view',

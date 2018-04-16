@@ -1,6 +1,6 @@
 import React from 'react'
 import { Router, Route, Switch } from 'dva/router'
-import App from './components/App'
+import App from './containers/App'
 
 export default function RouterConfig({ history }) {
   return (
