@@ -8319,6 +8319,7 @@ code {
 .list-tree .icon {
   display: inline-block;
   height: inherit;
+  user-select: none;
 }
 .list-group .icon::before,
 .list-tree .icon::before {

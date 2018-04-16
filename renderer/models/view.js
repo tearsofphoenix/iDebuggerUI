@@ -4,7 +4,9 @@ export default {
   namespace: 'view',
 
   state: {
-    snapshot: {}
+    snapshot: null,
+    selected: {},
+    openIDs: {}
   },
 
   effects: {
@@ -22,6 +24,22 @@ export default {
       return {
         ...state,
         snapshot: payload
+      }
+    },
+    selectView(state, {payload}) {
+      const {id} = payload
+      let {openIDs} = state
+      openIDs = {...openIDs}
+      if (openIDs[id]) {
+        delete openIDs[id]
+      } else {
+        openIDs[id] = true
+      }
+
+      return {
+        ...state,
+        selected: payload,
+        openIDs
       }
     }
   }

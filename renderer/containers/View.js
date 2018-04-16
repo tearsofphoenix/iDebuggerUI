@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 
 export default class View extends PureComponent {
   static propTypes = {
-    opened: PropTypes.bool,
     selectedID: PropTypes.number,
+    openIDs: PropTypes.object,
     id: PropTypes.number,
     views: PropTypes.array,
     windows: PropTypes.array,
@@ -13,19 +13,21 @@ export default class View extends PureComponent {
 
   _handleClick = (event) => {
     event.preventDefault()
-    this.props.clickHandler(this.props.id)
+    const { clickHandler, selectedID, openIDs, ...rest } = this.props
+    this.props.clickHandler(rest)
   }
 
   render() {
-    const { opened = true, selectedID, vid, views = [], windows = [], clickHandler } = this.props
+    const { id, views = [], windows = [], clickHandler } = this.props
+    const { openIDs, selectedID } = this.props
     const subviews = []
     for (let i = 0; i < views.length; ++i) {
       const obj = views[i]
-      subviews.push(<View selectedID={ selectedID } { ...obj } clickHandler={clickHandler} />)
+      subviews.push(<View key={ obj.id } selectedID={selectedID} openIDs={openIDs} { ...obj } clickHandler={ clickHandler } />)
     }
     for (let i = 0; i < windows.length; ++i) {
       const obj = windows[i]
-      subviews.push(<View selectedID={ selectedID } { ...obj } clickHandler={clickHandler} />)
+      subviews.push(<View key={ obj.id } selectedID={selectedID} openIDs={openIDs} { ...obj } clickHandler={ clickHandler } />)
     }
 
     let item = (
@@ -35,9 +37,10 @@ export default class View extends PureComponent {
         >
           <span className="icon icon-file-directory">{ this.props.class }</span>
         </div>)
+    const opened = openIDs[id]
     if (opened) {
       return (
-          <li className={ selectedID === vid ? 'list-nested-item selected' : 'list-nested-item' }>
+          <li className={ selectedID === id ? 'list-nested-item selected' : 'list-nested-item' }>
             { item }
             <ul className="list-tree">
               { subviews }
@@ -47,7 +50,7 @@ export default class View extends PureComponent {
     } else {
       return (
           <li
-              className={ selectedID === vid ? 'list-nested-item collapsed selected' : 'list-nested-item collapsed' }
+              className={ selectedID === id ? 'list-nested-item collapsed selected' : 'list-nested-item collapsed' }
           >
             { item }
           </li>
