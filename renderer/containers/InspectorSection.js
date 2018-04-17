@@ -10,6 +10,8 @@ const kMap = {
   UIColor: ColorInput,
   BOOL: Toggle,
   CGFloat: NumberInput,
+  double: TextInput,
+
 }
 
 export default

@@ -1,10 +1,18 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'dva'
+import Toolbar from './Toolbar'
 import ViewNode from './ViewNode'
 import kHost from '../services/constants'
 
 @connect(({ view }) => ({ view }))
 export default class Preview extends PureComponent {
+  constructor(props, context) {
+    super(props, context)
+    this.state = {
+      zoomScale: 1.0,
+      rotate: 0
+    }
+  }
   _handleViewClick = (args) => {
     this.props.dispatch({
       type: 'view/selectView',
@@ -12,9 +20,40 @@ export default class Preview extends PureComponent {
     })
   }
 
+  handleZoomIn = (event) => {
+    event.preventDefault()
+    const {zoomScale} = this.state
+    this.setState({zoomScale: zoomScale + 0.1})
+  }
+
+  handleZoomOut = (event) => {
+    event.preventDefault()
+    const {zoomScale} = this.state
+    this.setState({zoomScale: zoomScale - 0.1})
+  }
+
+  handleResetZoomScale = (event) => {
+    event.preventDefault()
+    this.setState({zoomScale: 1})
+  }
+
+  handleRotateLeft = (event) => {
+    event.preventDefault()
+    const {rotate} = this.state
+    this.setState({rotate: rotate - 90})
+  }
+
+  handleRotateRight = (event) => {
+    event.preventDefault()
+    const {rotate} = this.state
+    this.setState({rotate: rotate + 90})
+  }
+
   render() {
     const { view: { snapshot, selected } } = this.props
     if (snapshot) {
+      const {zoomScale, rotate} = this.state
+
       const mainWindow = snapshot.windows[0]
       const wrapperStyle = {
         width: mainWindow.layer_bounds_w - 2,
@@ -26,10 +65,16 @@ export default class Preview extends PureComponent {
         left: -1,
         top: -1,
         position: 'relative',
-        backgroundImage: `url(${kHost}/preview?id=${mainWindow.id})`
+        backgroundImage: `url(${kHost}/preview?id=${mainWindow.id})`,
+        transform: `translate(0px, 0px) rotate(${rotate}deg) scale(${zoomScale})`
       }
       const mainView = mainWindow.views[0]
       return (<ride-pane>
+        <Toolbar handleZoomIn={this.handleZoomIn} handleZoomOut={this.handleZoomOut}
+                 handleResetZoomScale={this.handleResetZoomScale}
+                 handleRotateLeft={this.handleRotateLeft}
+                 handleRotateRight={this.handleRotateRight}
+        />
         <div className="idg-preview">
           <div style={ wrapperStyle }>
             <div style={ mainWindowStyle }>

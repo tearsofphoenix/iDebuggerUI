@@ -9565,3 +9565,30 @@ label.tree_label:hover:before {
   justify-content: center;
   align-items: center;
 }
+
+.idg-toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 36px;
+  align-items: center;
+  border-bottom: 1px solid #1a1d23;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.idg-toolbar-left, .idg-toolbar-right {
+  display: flex;
+}
+
+.idg-toolbar-icon {
+  margin-left: 4px;
+  margin-right: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.idg-space {
+  display: flex;
+  flex-grow: 1;
+}
