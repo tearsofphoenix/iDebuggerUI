@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'dva'
+import TreeContainer from './TreeContainer'
 import ViewTree from './ViewTree'
 import Preview from './Preview'
 import Inspector from './Inspector'
@@ -470,14 +471,7 @@ export default class App extends React.Component {
             <ride-pane-axis className="horizontal">
 
               <ride-pane style={ { flexGrow: 0, flexBasis: '300px' } }>
-                <ViewTree />
-                { this.state.deletePromptOpen
-                    ? <DeletePrompt
-                        deletePromptHandler={ this.deletePromptHandler }
-                        name={ path.basename(this.state.selectedItem.path) }
-                    />
-                    : <span /> }
-
+                <TreeContainer />
                 <MockComponentTree />
 
               </ride-pane>

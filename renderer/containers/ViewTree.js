@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'dva'
 import View from './View'
+import Empty from '../components/Empty'
 
 @connect(({ view }) => ({ view }))
 export default class ViewTree extends PureComponent {
@@ -21,39 +22,17 @@ export default class ViewTree extends PureComponent {
     let content = null
     if (snapshot) {
       const mainWindow = snapshot.windows[0]
-      content = (<div className="item-views">
-        <div className="styleguide pane-item">
-          <header className="styleguide-header">
-            <h5>View Hierarchy</h5>
-          </header>
-          <main className="styleguide-sections">
-
-            <div className="tree-view-resizer tool-panel">
-              <div className="tree-view-scroller">
-                <ul className="tree-view full-menu list-tree has-collapsable-children">
-                  <View clickHandler={this._handleViewClick} selectedID={selected.id} openIDs={openIDs} {...mainWindow} />
-                </ul>
-              </div>
-              <div className="tree-view-resize-handle" />
-            </div>
-          </main>
+      content = (<div className="tree-view-resizer tool-panel">
+        <div className="tree-view-scroller">
+          <ul className="tree-view full-menu list-tree has-collapsable-children">
+            <View clickHandler={ this._handleViewClick } selectedID={ selected.id }
+                  openIDs={ openIDs } { ...mainWindow } />
+          </ul>
         </div>
+        <div className="tree-view-resize-handle" />
       </div>)
     } else {
-      content = (<div className="item-views">
-        <div className="styleguide pane-item">
-          <header className="styleguide-header">
-            <h5>View Hierarchy</h5>
-          </header>
-          <main className="styleguide-sections">
-
-            <div className="empty">
-              No Content
-            </div>
-
-          </main>
-        </div>
-      </div>)
+      content = (<Empty />)
     }
     return content
   }

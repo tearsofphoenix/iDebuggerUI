@@ -22,10 +22,10 @@ export const ColorInput = ({ label, ...rest }) => (<div className="control-wrap"
   <div className="controls"><input className="input-color" type="color" { ...rest } /></div>
 </div>)
 
-export const Select = ({ label, options, onChange, ...rest }) => (<div className="control-wrap">
-  <div className="label">{ label }</div>
+export const Select = ({ label, options, onChange, selectStyle, ...rest }) => (<div className="control-wrap">
+  {label && <div className="label">{ label }</div>}
   <div className="controls">
-    <select className="input-select" onChange={ onChange }>
+    <select className="input-select" style={selectStyle} onChange={ onChange }>
       { options.map((loopper, idx) => (<option key={ idx }>{ loopper }</option>)) }
     </select>
   </div>
