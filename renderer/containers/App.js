@@ -2,10 +2,10 @@ import React from 'react'
 import {connect} from 'dva'
 import ViewTree from './ViewTree'
 import Preview from './Preview'
+import Inspector from './Inspector'
 
 import DeletePrompt from '../components/DeletePrompt';
 import MockComponentTree from '../components/MockComponentTree';
-import MockComponentInspector from '../components/MockComponentInspector'
 
 const { ipcRenderer } = require('electron');
 const { getTree } = require('../../lib/file-tree');
@@ -487,12 +487,7 @@ export default class App extends React.Component {
               <ride-pane-resize-handle className="horizontal" />
 
               <ride-pane style={ { flexGrow: 0, flexBasis: '300px' } }>
-
-                <button className="btn" onClick={ this.openSim }>
-                  Simulator
-                </button>
-                <MockComponentInspector />
-
+                <Inspector />
               </ride-pane>
 
             </ride-pane-axis>

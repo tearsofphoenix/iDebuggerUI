@@ -4,8 +4,7 @@ import ViewNode from './ViewNode'
 import kHost from '../services/constants'
 
 @connect(({ view }) => ({ view }))
-export default
-class Preview extends PureComponent {
+export default class Preview extends PureComponent {
   _handleViewClick = (args) => {
     this.props.dispatch({
       type: 'view/selectView',
@@ -30,13 +29,16 @@ class Preview extends PureComponent {
         backgroundImage: `url(${kHost}/preview?id=${mainWindow.id})`
       }
       const mainView = mainWindow.views[0]
-      return (<div className="idg-preview">
-        <div style={ wrapperStyle }>
-          <div style={ mainWindowStyle }>
-            <ViewNode { ...mainView } parents={[mainWindow.id]} selectedID={ selected.id } clickHandler={this._handleViewClick} />
+      return (<ride-pane>
+        <div className="idg-preview">
+          <div style={ wrapperStyle }>
+            <div style={ mainWindowStyle }>
+              <ViewNode { ...mainView } parents={ [mainWindow.id] } selectedID={ selected.id }
+                        clickHandler={ this._handleViewClick } />
+            </div>
           </div>
         </div>
-      </div>)
+      </ride-pane>)
     }
     return (<div>
 
