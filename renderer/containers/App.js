@@ -15,7 +15,6 @@ const fs = require('fs');
 const path = require('path');
 const { File, Directory } = require('../../lib/item-schema');
 
-@connect(({view}) => ({view}))
 export default class App extends React.Component {
   constructor() {
     super();
@@ -453,12 +452,6 @@ export default class App extends React.Component {
       selectedItem,
       renameFlag: false
     });
-  }
-
-  componentWillMount() {
-    this.props.dispatch({
-      type: 'view/getSnapshot'
-    })
   }
 
   render() {

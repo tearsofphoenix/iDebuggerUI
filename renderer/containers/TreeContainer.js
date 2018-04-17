@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'dva'
 import { Select } from '../components/Controls'
 import Empty from '../components/Empty'
 import ViewTree from './ViewTree'
+import FileTree from './FileTree'
 
 const selectStyle = {
   border: 'unset',
@@ -12,28 +12,43 @@ const selectStyle = {
 }
 
 const kViewMap = {
-  Views: ViewTree
+  Views: ViewTree,
+  Files: FileTree
 }
 
+@connect(({ global }) => ({ global }))
 export default class TreeContainer extends PureComponent {
-  constructor(props, context) {
-    super(props, context)
-    this.state = { current: 'Views' }
-  }
-
   handleSelect = (event) => {
     const { value } = event.target
-    this.setState({ current: value })
+    this.props.dispatch({
+      type: 'global/setCurrentCategory',
+      payload: value
+    })
+  }
+
+  foldTree = (event) => {
+    event.preventDefault()
+  }
+
+  expandTree = (event) => {
+    event.preventDefault()
   }
 
   render() {
     const options = ['Views', 'Files', 'Network', 'Memory']
-    const { current } = this.state
-    const Cls = kViewMap[current] || Empty
+    const { global: { currentCategory } } = this.props
+    const Cls = kViewMap[currentCategory] || Empty
+    console.log(41, currentCategory, Cls)
     return (<div className="item-views">
       <div className="styleguide pane-item">
-        <header className="styleguide-header">
-          <Select options={ options } selectStyle={ selectStyle } onChange={ this.handleSelect } />
+        <header className="styleguide-header" style={ { display: 'flex', justifyContent: 'space-between' } }>
+          <div>
+            <Select options={ options } selectStyle={ selectStyle } onChange={ this.handleSelect } />
+          </div>
+          <div style={ { display: 'flex', alignItems: 'center' } }>
+            <div className="icon-primitive-dot idg-toolbar-icon" onClick={ this.expandTree } />
+            <div className="icon-fold idg-toolbar-icon" onClick={ this.foldTree } />
+          </div>
         </header>
         <main className="styleguide-sections">
           <Cls />

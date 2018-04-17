@@ -3,14 +3,10 @@
 const { ipcMain } = require('electron');
 const fs = require('fs');
 const path = require('path');
-const deleteItem = require('../lib/delete-directory');
-const simulator = require('./simulator');
+const deleteItem = require('../lib/delete-directory')
 
 module.exports = () => {
   //ipcMain listeners
-  ipcMain.on('openSimulator', (event, root) => {
-    simulator(root);
-  });
 
   ipcMain.on('createItem', (event, dirPath, name, type) => {
     if (type === 'file') {

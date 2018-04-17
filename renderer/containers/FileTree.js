@@ -1,38 +1,29 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'dva'
-import View from './View'
+import DirectoryItem from './DirectoryItem'
 import Empty from '../components/Empty'
 
-@connect(({ view }) => ({ view }))
-export default class ViewTree extends PureComponent {
+@connect(({ file }) => ({ file }))
+export default class FileTree extends PureComponent {
   static propTypes = {
     view: PropTypes.any
   }
 
-  _handleViewClick = (args) => {
-    this.props.dispatch({
-      type: 'view/selectView',
-      payload: args
-    })
-  }
-
   componentWillMount() {
     this.props.dispatch({
-      type: 'view/getSnapshot'
+      type: 'file/getFileHierarchy'
     })
   }
 
   render() {
-    const { view: { snapshot, selected, openIDs } } = this.props
+    const { file: { tree, selected, openIDs } } = this.props
     let content = null
-    if (snapshot) {
-      const mainWindow = snapshot.windows[0]
+    if (tree) {
       content = (<div className="tree-view-resizer tool-panel">
         <div className="tree-view-scroller">
           <ul className="tree-view full-menu list-tree has-collapsable-children">
-            <View clickHandler={ this._handleViewClick } selectedID={ selected.id }
-                  openIDs={ openIDs } { ...mainWindow } />
+            <DirectoryItem />
           </ul>
         </div>
         <div className="tree-view-resize-handle" />
