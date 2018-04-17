@@ -1,8 +1,8 @@
 import React from 'react'
 import {connect} from 'dva'
 import ViewTree from './ViewTree'
+import Preview from './Preview'
 
-import TextEditorPane from '../components/TextEditorPane';
 import DeletePrompt from '../components/DeletePrompt';
 import MockComponentTree from '../components/MockComponentTree';
 import MockComponentInspector from '../components/MockComponentInspector'
@@ -482,13 +482,7 @@ export default class App extends React.Component {
               </ride-pane>
               <ride-pane-resize-handle class="horizontal" />
 
-              <TextEditorPane
-                  appState={ this.state }
-                  setActiveTab={ this.setActiveTab }
-                  addEditorInstance={ this.addEditorInstance }
-                  closeTab={ this.closeTab }
-                  openMenuId={ this.state.openMenuId }
-              />
+              <Preview />
 
               <ride-pane-resize-handle className="horizontal" />
 

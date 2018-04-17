@@ -27,13 +27,14 @@ export default {
       }
     },
     selectView(state, {payload}) {
-      const {id} = payload
+      const {id, parents = []} = payload
       let {openIDs} = state
       openIDs = {...openIDs}
       if (openIDs[id]) {
         delete openIDs[id]
       } else {
         openIDs[id] = true
+        parents.forEach(looper => openIDs[looper] = true)
       }
 
       return {
