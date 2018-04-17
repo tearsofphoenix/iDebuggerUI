@@ -8,15 +8,20 @@ export default class Toolbar extends PureComponent {
     handleResetZoomScale: PropTypes.func,
     handleRotateLeft: PropTypes.func,
     handleRotateRight: PropTypes.func,
+    scale: PropTypes.string
   }
 
   render() {
-    const {handleZoomIn, handleZoomOut, handleResetZoomScale, handleRotateRight, handleRotateLeft} = this.props
+    const {
+      handleZoomIn, handleZoomOut, handleResetZoomScale,
+      handleRotateRight, handleRotateLeft, scale
+    } = this.props
     return (<div className="idg-toolbar">
       <div className="idg-toolbar-left">
-        <div className="icon-diff-added idg-toolbar-icon" onClick={handleZoomIn} />
-        <div className="icon-diff-removed idg-toolbar-icon" onClick={handleZoomOut} />
+        <div className="icon-plus idg-toolbar-icon" onClick={handleZoomIn} />
+        <div className="icon-dash idg-toolbar-icon" onClick={handleZoomOut} />
         <div className="icon-browser idg-toolbar-icon" onClick={handleResetZoomScale} />
+        <div style={{marginLeft: 10}}>{scale}</div>
       </div>
       <div className="idg-space" />
       <div className="idg-toolbar-right">

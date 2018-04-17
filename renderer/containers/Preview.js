@@ -74,6 +74,7 @@ export default class Preview extends PureComponent {
                  handleResetZoomScale={this.handleResetZoomScale}
                  handleRotateLeft={this.handleRotateLeft}
                  handleRotateRight={this.handleRotateRight}
+                 scale={`${Math.ceil(zoomScale * 100)}%`}
         />
         <div className="idg-preview">
           <div style={ wrapperStyle }>

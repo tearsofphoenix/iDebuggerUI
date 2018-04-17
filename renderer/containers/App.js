@@ -3,6 +3,7 @@ import {connect} from 'dva'
 import ViewTree from './ViewTree'
 import Preview from './Preview'
 import Inspector from './Inspector'
+import ToolWindow from './ToolWindow'
 
 import DeletePrompt from '../components/DeletePrompt';
 import MockComponentTree from '../components/MockComponentTree';
@@ -486,13 +487,15 @@ export default class App extends React.Component {
 
               <ride-pane-resize-handle className="horizontal" />
 
-              <ride-pane style={ { flexGrow: 0, flexBasis: '300px' } }>
+              <ride-pane style={ { flexGrow: 0, flexBasis: '300px', height: 'calc(100% - 24px)' } }>
                 <Inspector />
               </ride-pane>
 
             </ride-pane-axis>
           </ride-pane-container>
-
+          <ride-panel-container>
+            <ToolWindow />
+          </ride-panel-container>
         </ride-workspace>
     );
   }

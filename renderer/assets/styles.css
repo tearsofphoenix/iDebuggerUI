@@ -3614,14 +3614,14 @@ kbd kbd {
 }
 pre {
   display: block;
-  padding: 8px;
+  /*padding: 8px;*/
   margin: 0 0 8.5px;
   font-size: 11px;
   line-height: 1.42857143;
   word-break: break-all;
   word-wrap: break-word;
   color: #d6dae1;
-  background-color: #323843;
+  /*background-color: #323843;*/
   border: 1px solid #1a1d23;
   border-radius: 4px;
 }
@@ -8089,7 +8089,7 @@ label {
 pre {
   box-shadow: none;
   color: #9ba4b5;
-  background: #323843;
+  /*background: #323843;*/
   border-radius: 3px;
   border: none;
   margin: 0;
@@ -9562,6 +9562,7 @@ label.tree_label:hover:before {
 .idg-preview {
   display: flex;
   flex-grow: 1;
+  overflow: hidden;
   justify-content: center;
   align-items: center;
 }
@@ -9591,4 +9592,39 @@ label.tree_label:hover:before {
 .idg-space {
   display: flex;
   flex-grow: 1;
+}
+
+.idg-tool-window {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 1;
+  max-height: 360px;
+  flex-direction: column;
+  background: #292B32;
+}
+
+.idg-tool-bar {
+  display: flex;
+  min-height: 24px;
+  border-top: 1px solid #1a1d23;
+  border-bottom: 1px solid #1a1d23;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 6px;
+  padding-right: 6px;
+  justify-content: space-between;
+  user-select: none;
+}
+
+.idg-tool-window-content {
+  height: 312px;
+  display: flex;
+  overflow-y: hidden;
+  width: 100%;
+}
+
+.terminal-base {
+  max-width: unset;
 }
