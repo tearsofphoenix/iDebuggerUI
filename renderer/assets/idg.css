@@ -1,0 +1,83 @@
+
+.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    height: calc(100% - 100px);
+    font-size: 24px;
+}
+
+.idg-view-node:hover {
+    border: 1px solid red !important;
+}
+
+.idg-preview {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+.idg-toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 36px;
+    align-items: center;
+    border-bottom: 1px solid #1a1d23;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.idg-toolbar-left, .idg-toolbar-right {
+    display: flex;
+}
+
+.idg-toolbar-icon {
+    margin-left: 4px;
+    margin-right: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.idg-space {
+    display: flex;
+    flex-grow: 1;
+}
+
+.idg-tool-window {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+    max-height: 360px;
+    flex-direction: column;
+    background: #292B32;
+}
+
+.idg-tool-bar {
+    display: flex;
+    min-height: 24px;
+    border-top: 1px solid #1a1d23;
+    border-bottom: 1px solid #1a1d23;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 6px;
+    padding-right: 6px;
+    justify-content: space-between;
+    user-select: none;
+}
+
+.idg-tool-window-content {
+    height: 312px;
+    display: flex;
+    overflow-y: hidden;
+    width: 100%;
+}
+
+.terminal-base {
+    max-width: unset;
+}

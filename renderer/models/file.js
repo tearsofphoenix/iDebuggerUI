@@ -1,3 +1,5 @@
+import { fetch } from '../services/file'
+
 export default {
   namespace: 'file',
 
@@ -8,11 +10,21 @@ export default {
   },
 
   effects: {
-    * getFileHierarchy(_, {call, put}) {
-
+    * getFileHierarchy(_, { call, put }) {
+      const { data } = yield call(fetch)
+      yield put({
+        type: 'setFileHierarchy',
+        payload: data
+      })
     }
   },
 
   reducers: {
+    setFileHierarchy(state, { payload }) {
+      return {
+        ...state,
+        tree: payload
+      }
+    }
   }
 }
