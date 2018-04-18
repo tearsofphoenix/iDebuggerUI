@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import Terminal from 'terminal-in-react'
+import Terminal from './Terminal'
+import System from './System'
+import TabContainer from '../components/TabContainer'
 
 export default class ToolWindow extends PureComponent {
   static propTypes = {
@@ -29,36 +31,29 @@ export default class ToolWindow extends PureComponent {
     this.setState({hideContent: true, selected: null})
   }
 
+  _renderContent = () => {
+    const {selected} = this.state
+    if (selected === 'Terminal') {
+      return (<Terminal />)
+    } else {
+      return (<System />)
+    }
+  }
+
   render() {
-    const { plugins = ['Terminal', 'Log']} = this.props
+    const { plugins = ['Terminal', 'System']} = this.props
     const { selected, hideContent } = this.state
+    const tabs = plugins.map(looper => ({name: looper, id: looper}))
     return (<div className="idg-tool-window">
       {!hideContent && <div className="idg-tool-bar">
         <div>{selected}</div>
         <div className="icon-desktop-download idg-toolbar-icon" onClick={this.hideContent} />
       </div>}
       {!hideContent && <div className="idg-tool-window-content">
-        <Terminal
-            hideTopBar
-            allowTabs={false}
-            color='#BABABA'
-            backgroundColor='#2F2F2F'
-            style={{ fontWeight: "bold", width: '100%', fontSize: "1em" }}
-            commands={{
-              popup: () => alert('Terminal in React')
-            }}
-            descriptions={{
-              popup: 'alert'
-            }}
-            msg='You can write anything here. Example - Hello! My name is Foo and I like Bar.'
-        />
+        {this._renderContent()}
       </div>}
       <div className="idg-tool-bar">
-        <div className="btn-group">
-          { plugins.map((looper, idx) => (<button className={ selected === looper ? 'btn selected' : 'btn' }
-                                                  onClick={ () => this.handleSelect(looper) }
-                                                  key={ idx }>{ looper }</button>)) }
-        </div>
+        <TabContainer tabs={tabs} setActiveTab={this.handleSelect} activeTab={selected} />
       </div>
     </div>)
   }

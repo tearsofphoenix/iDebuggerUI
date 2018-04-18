@@ -79,5 +79,29 @@
 }
 
 .terminal-base {
-    max-width: unset;
+    max-width: unset !important;
+}
+
+/* tab */
+.idg-tab-container {
+    display: flex;
+    height: 24px;
+    flex-direction: row;
+}
+
+.idg-tab {
+    user-select: none;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    font-size: 10px;
+}
+
+.idg-tab .title {
+    cursor: default;
+}
+
+.idg-tab-active {
+    background: #4d78cc;
+    color: white;
 }

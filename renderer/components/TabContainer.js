@@ -1,34 +1,29 @@
 import React from 'react';
 import Tab from './Tab';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
 const TabContainer = ({
-  appState,
-  setActiveTab,
-  closeTab
-}) => {
-  const tabs = [];
-    for (var i = 0; i < appState.openTabs.length; i++) {
-      tabs.push(
-        <Tab 
-          key={i} 
-          name={appState.openTabs[i].name} 
-          setActiveTab={setActiveTab} 
-          id={appState.openTabs[i].id} 
-          closeTab={closeTab}
-        />);
-    }
-    return (
-      <ul className="list-inline tab-bar inset-panel tab-container">
-        {tabs}
-      </ul>
-    )
+                        tabs = [],
+                        activeTab,
+                        setActiveTab,
+                        closeTab
+                      }) => {
+  const elements = tabs.map(({ name, id }, idx) => <Tab
+      key={ idx }
+      name={ name }
+      setActiveTab={ setActiveTab }
+      id={ id }
+      active={activeTab === id}
+      closeTab={ closeTab }
+  />)
+  return (<div className="idg-tab-container">{ elements }</div>)
 }
 
 TabContainer.propTypes = {
-  appState: PropTypes.object.isRequired,
+  tabs: PropTypes.array.isRequired,
   setActiveTab: PropTypes.func.isRequired,
-  closeTab: PropTypes.func.isRequired
+  activeTab: PropTypes.string,
+  closeTab: PropTypes.func
 }
 
 export default TabContainer;
