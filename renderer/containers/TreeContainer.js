@@ -41,8 +41,8 @@ export default class TreeContainer extends PureComponent {
     console.log(41, currentCategory, Cls)
     return (<div className="item-views">
       <div className="styleguide pane-item">
-        <header className="styleguide-header" style={ { display: 'flex', justifyContent: 'space-between' } }>
-          <div>
+        <header className="styleguide-header" style={ { display: 'flex', justifyContent: 'space-between', height: '32px' } }>
+          <div style={{display: 'flex', alignItems: 'center'}}>
             <Select options={ options } selectStyle={ selectStyle } onChange={ this.handleSelect } />
           </div>
           <div style={ { display: 'flex', alignItems: 'center' } }>

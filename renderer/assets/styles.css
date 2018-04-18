@@ -4560,7 +4560,7 @@ ride-panel.tool-panel:empty {
   background: #7d9cda;
 }
 ride-pane-container {
-  padding-top: 0.5em;
+  /*padding-top: 0.5em;*/
 }
 ride-pane-container ride-pane {
   position: relative;
@@ -6157,7 +6157,7 @@ html {
   z-index: 100;
 }
 .styleguide-header {
-  padding: 3px 15px 2px;
+  padding: 1px 15px 0;
   border-bottom: 1px solid #1a1d23;
 }
 .styleguide-header h1 {

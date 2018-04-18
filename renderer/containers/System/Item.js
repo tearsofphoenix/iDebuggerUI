@@ -14,7 +14,8 @@ const nameSpanStyle = {
 }
 
 const spanStyle = {
-  flex: 1
+  flex: 1,
+  color: '#c2ccdc'
 }
 
 export default ({ name, value }) => (<div style={ style }>
