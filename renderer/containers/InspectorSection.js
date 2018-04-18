@@ -17,13 +17,18 @@ const kMap = {
 export default
 class InspectorSection extends PureComponent {
   static propTypes = {
-    data: PropTypes.object
+    data: PropTypes.object,
+    changeValue: PropTypes.func
   }
 
   _getInput = (obj) => {
-    const {type, name, value} = obj
+    const {type, name, value, ext} = obj
     const Cls = kMap[type] || TextInput
-    return (<Cls label={name} value={value} />)
+    if (ext) {
+      const {min, max} = ext
+      return (<RangeInput label={name} value={value} min={min} max={max} onChange={(event) => this.props.changeValue(event, obj)} />)
+    }
+    return (<Cls label={name} value={value} onChange={(event) => this.props.changeValue(event, obj)} />)
   }
 
   render() {

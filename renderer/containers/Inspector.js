@@ -6,12 +6,26 @@ import InspectorSection from './InspectorSection'
 export default class Inspector extends PureComponent {
   static propTypes = {}
 
+  changeValue = (event, obj) => {
+    const { view: { selected } } = this.props
+    const {name, value} = event.target
+    console.log(10, name, value, obj)
+    this.props.dispatch({
+      type: 'view/updateProperty',
+      payload: {
+        target: selected.id,
+        property: obj,
+        value
+      }
+    })
+  }
+
   render() {
     const { view: { selected } } = this.props
     const {props = []} = selected
     let content = null
     if (props.length > 0) {
-      content = props.map((looper, idx) => <InspectorSection data={looper} key={idx} />)
+      content = props.map((looper, idx) => <InspectorSection data={looper} key={idx} changeValue={this.changeValue} />)
     } else {
       content = (<div className="empty">No Selection</div>)
     }

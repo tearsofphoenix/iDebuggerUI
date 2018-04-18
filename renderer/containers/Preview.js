@@ -50,7 +50,7 @@ export default class Preview extends PureComponent {
   }
 
   render() {
-    const { view: { snapshot, selected } } = this.props
+    const { view: { snapshot, selected, previewImageURL } } = this.props
     if (snapshot) {
       const {zoomScale, rotate} = this.state
 
@@ -65,9 +65,10 @@ export default class Preview extends PureComponent {
         left: -1,
         top: -1,
         position: 'relative',
-        backgroundImage: `url(${kHost}/preview?id=${mainWindow.id})`,
+        backgroundImage: previewImageURL,
         transform: `translate(0px, 0px) rotate(${rotate}deg) scale(${zoomScale})`
       }
+      console.log(71, mainWindowStyle)
       const mainView = mainWindow.views[0]
       return (<ride-pane>
         <Toolbar handleZoomIn={this.handleZoomIn} handleZoomOut={this.handleZoomOut}

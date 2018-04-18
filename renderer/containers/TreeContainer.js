@@ -35,7 +35,7 @@ export default class TreeContainer extends PureComponent {
   }
 
   render() {
-    const options = ['Views', 'Files', 'Network', 'Memory']
+    const options = ['Views', 'Files', 'Frameworks']
     const { global: { currentCategory } } = this.props
     const Cls = kViewMap[currentCategory] || Empty
     console.log(41, currentCategory, Cls)

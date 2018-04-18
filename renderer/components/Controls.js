@@ -7,9 +7,11 @@ export const TextInput = ({ label, ...rest }) => (<div className="control-wrap">
   </div>
 </div>)
 
-export const RangeInput = ({ label, value, onChange }) => (<div className="control-wrap">
+export const RangeInput = ({ label, ...rest }) => (<div className="control-wrap">
   <div className="label">{ label }</div>
-  <div className="controls"><input className="input-range" type="range" value={ value } onChange={ onChange } /></div>
+  <div className="controls">
+    <input className="input-range" type="range" {...rest} />
+  </div>
 </div>)
 
 export const NumberInput = ({ label, ...rest }) => (<div className="control-wrap">
