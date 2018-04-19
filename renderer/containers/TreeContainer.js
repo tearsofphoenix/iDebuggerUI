@@ -3,7 +3,7 @@ import { connect } from 'dva'
 import { Select } from '../components/Controls'
 import Empty from '../components/Empty'
 import ViewTree from './ViewTree'
-import FileTree from './FileTree'
+import FileTree from './FileSystem'
 
 const selectStyle = {
   border: 'unset',

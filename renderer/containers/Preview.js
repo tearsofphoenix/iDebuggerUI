@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'dva'
 import Toolbar from './Toolbar'
-import ViewNode from './ViewNode'
-import kHost from '../services/constants'
+import ViewNode from './ViewTree/ViewNode'
 
 @connect(({ view }) => ({ view }))
 export default class Preview extends PureComponent {

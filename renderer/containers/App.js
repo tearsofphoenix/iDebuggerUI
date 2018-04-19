@@ -8,6 +8,7 @@ import ToolWindow from './ToolWindow'
 
 import DeletePrompt from '../components/DeletePrompt';
 import MockComponentTree from '../components/MockComponentTree';
+import ConnectView from './ConnectView'
 
 const { ipcRenderer } = require('electron');
 const { getTree } = require('../../lib/file-tree');
@@ -15,6 +16,7 @@ const fs = require('fs');
 const path = require('path');
 const { File, Directory } = require('../../lib/item-schema');
 
+@connect(({global}) => ({global}))
 export default class App extends React.Component {
   constructor() {
     super();
@@ -455,35 +457,40 @@ export default class App extends React.Component {
   }
 
   render() {
-    return (
-        <ride-workspace className="scrollbars-visible-always" onClick={ this.closeOpenDialogs }>
+    const {global: {host}} = this.props
+    if (host) {
+      return (
+          <ride-workspace className="scrollbars-visible-always" onClick={ this.closeOpenDialogs }>
 
-          <ride-panel-container className="header" />
+            <ride-panel-container className="header" />
 
-          <ride-pane-container>
-            <ride-pane-axis className="horizontal">
+            <ride-pane-container>
+              <ride-pane-axis className="horizontal">
 
-              <ride-pane style={ { flexGrow: 0, flexBasis: '300px' } }>
-                <TreeContainer />
-                <MockComponentTree />
+                <ride-pane style={ { flexGrow: 0, flexBasis: '300px' } }>
+                  <TreeContainer />
+                  <MockComponentTree />
 
-              </ride-pane>
-              <ride-pane-resize-handle class="horizontal" />
+                </ride-pane>
+                <ride-pane-resize-handle class="horizontal" />
 
-              <Preview />
+                <Preview />
 
-              <ride-pane-resize-handle className="horizontal" />
+                <ride-pane-resize-handle className="horizontal" />
 
-              <ride-pane style={ { flexGrow: 0, flexBasis: '300px', height: 'calc(100% - 24px)' } }>
-                <Inspector />
-              </ride-pane>
+                <ride-pane style={ { flexGrow: 0, flexBasis: '300px', height: 'calc(100% - 24px)' } }>
+                  <Inspector />
+                </ride-pane>
 
-            </ride-pane-axis>
-          </ride-pane-container>
-          <ride-panel-container>
-            <ToolWindow />
-          </ride-panel-container>
-        </ride-workspace>
-    );
+              </ride-pane-axis>
+            </ride-pane-container>
+            <ride-panel-container>
+              <ToolWindow />
+            </ride-panel-container>
+          </ride-workspace>
+      )
+    } else {
+      return (<ConnectView />)
+    }
   }
 }

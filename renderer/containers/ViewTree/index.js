@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'dva'
 import View from './View'
-import Empty from '../components/Empty'
+import Empty from '../../components/Empty'
 
 @connect(({ view }) => ({ view }))
 export default class ViewTree extends PureComponent {

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'dva'
 import DirectoryItem from './DirectoryItem'
-import Empty from '../components/Empty'
+import Empty from '../../components/Empty'
 
 @connect(({ file }) => ({ file }))
 export default class FileTree extends PureComponent {

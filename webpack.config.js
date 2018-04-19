@@ -20,11 +20,13 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
-      }, {
+        exclude: /node_modules/
+      },
+      {
         test: /\.(css|scss|sass)$/,
-        loaders: ['style', 'css', 'sass'],
-      }, {
+        loaders: ['style', 'css', 'sass']
+      },
+      {
         test: /\.(eot|woff)$/,
         loader: 'file-loader',
       },
