@@ -38,7 +38,6 @@ export default class TreeContainer extends PureComponent {
     const options = ['Views', 'Files', 'Frameworks']
     const { global: { currentCategory } } = this.props
     const Cls = kViewMap[currentCategory] || Empty
-    console.log(41, currentCategory, Cls)
     return (<div className="item-views">
       <div className="styleguide pane-item">
         <header className="styleguide-header" style={ { display: 'flex', justifyContent: 'space-between', height: '32px' } }>

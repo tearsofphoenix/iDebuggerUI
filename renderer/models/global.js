@@ -11,7 +11,7 @@ export default {
 
   effects: {
     * connectToApp({ payload }, { call, put }) {
-      console.log(14)
+      console.log(17)
       const { data } = yield call(connectApp, payload)
       if (data.code === 1000) {
         yield put({
@@ -28,6 +28,7 @@ export default {
 
   reducers: {
     setCurrentCategory(state, { payload }) {
+      console.log(34)
       return {
         ...state,
         currentCategory: payload
@@ -35,6 +36,7 @@ export default {
     },
 
     didConnectApp(state, { payload }) {
+      console.log(42)
       if (payload) {
         const { ip, port } = payload
         const host = `http://${ip}:${port}`

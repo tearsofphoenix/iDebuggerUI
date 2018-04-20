@@ -35,15 +35,17 @@ export default {
     * getSnapshot({ payload }, { call, put, select }) {
       const host = yield select(({global}) => global.host)
       const { data } = yield call(fetch, {host})
+      console.log(38)
       yield put({
         type: 'saveSnapshot',
         payload: {data, host}
       })
     },
 
-    * updateProperty({ payload }, { call, put }) {
+    * updateProperty({ payload }, { call, put, select }) {
       const host = yield select(({global}) => global.host)
-      const { data } = yield call(update, {host, payload})
+      const { data } = yield call(update, {host, data: payload})
+      console.log(47, data)
       yield put({
         type: 'getSnapshot'
       })

@@ -6,6 +6,7 @@ import fileModel from './models/file'
 import pluginModel from './models/plugin'
 import globalModel from './models/global'
 import systemModel from './models/system'
+import appModel from './models/app'
 
 const app = dva({})
 
@@ -16,5 +17,6 @@ app.model(fileModel)
 app.model(pluginModel)
 app.model(globalModel)
 app.model(systemModel)
+app.model(appModel)
 
 app.start('#root')

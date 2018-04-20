@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'dva'
 import IP from 'ip'
 import IPut from '../components/iput/src/index.jsx'
+
 console.log(5, IP)
 
 const wrapperStyle = {
@@ -33,7 +34,7 @@ const errorStyle = {
 export default class ConnectView extends PureComponent {
   constructor() {
     super()
-    this.state = { ip: '', port: '9449' }
+    this.state = { ip: '127.0.0.1', port: '9449' }
   }
 
   handleIP = (value) => {
@@ -59,7 +60,7 @@ export default class ConnectView extends PureComponent {
     }
 
     if (error) {
-      this.setState({errorPrompt: error})
+      this.setState({ errorPrompt: error })
     } else {
       this.props.dispatch({
         type: 'global/connectToApp',
@@ -70,6 +71,7 @@ export default class ConnectView extends PureComponent {
 
   render() {
     const { global: { errorPrompt } } = this.props
+    const { ip, port } = this.state
     return (
         <div style={ wrapperStyle }>
           <main className="styleguide-sections" style={ { display: 'flex', justifyContent: 'center' } }>
@@ -81,14 +83,15 @@ export default class ConnectView extends PureComponent {
                   <div className="block">
                     <div className="control-wrap" style={ { display: 'flex' } }>
                       <div className="label" style={ labelStyle }>IP:</div>
-                      <IPut defaultValue={ '0.0.0.0' } onChange={ this.handleIP } />
+                      <IPut value={ ip } onChange={ this.handleIP } />
                     </div>
                   </div>
                   <div className="block">
                     <div className="control-wrap" style={ { display: 'flex' } }>
                       <div className="label" style={ labelStyle }>Port:</div>
-                      <div className="react-ip-input__item"><input type="text" style={ { width: '100px' } }
-                                                                   onChange={ this.handlePort } /></div>
+                      <div className="react-ip-input__item">
+                        <input type="text" style={ { width: '100px' } } value={ port } onChange={ this.handlePort } />
+                      </div>
                     </div>
                   </div>
                   <div className="block" style={ { textAlign: 'center', marginTop: 40 } }>
