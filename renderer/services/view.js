@@ -1,10 +1,9 @@
 import axios from 'axios'
-import kHost from './constants'
 
-export async function fetch() {
-  return axios.get(`${kHost}/view/snapshot`)
+export async function fetch({host}) {
+  return axios.get(`${host}/view/snapshot`)
 }
 
-export async function update(data) {
-  return axios.post(`${kHost}/view/update`, data)
+export async function update({host, data}) {
+  return axios.post(`${host}/view/update`, data)
 }

@@ -8,8 +8,9 @@ export default {
   },
 
   effects: {
-    * getSystemInfo(_, { call, put }) {
-      const { data } = yield call(fetchSystemInfo)
+    * getSystemInfo(_, { call, put, select }) {
+      const host = yield select(({global}) => global.host)
+      const { data } = yield call(fetchSystemInfo, {host})
       yield put({
         type: 'setSystemInfo',
         payload: data

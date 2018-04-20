@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'dva'
+import IP from 'ip'
 import IPut from '../components/iput/src/index.jsx'
+console.log(5, IP)
 
 const wrapperStyle = {
   display: 'flex',
@@ -31,7 +33,7 @@ const errorStyle = {
 export default class ConnectView extends PureComponent {
   constructor() {
     super()
-    this.state = { ip: '', port: '' }
+    this.state = { ip: '', port: '9449' }
   }
 
   handleIP = (value) => {
@@ -45,15 +47,29 @@ export default class ConnectView extends PureComponent {
 
   tryConnectToApp = () => {
     console.log(46)
-    const { ip, port } = this.state
-    this.props.dispatch({
-      type: 'global/connectToApp',
-      payload: { ip, port }
-    })
+    let { ip, port } = this.state
+    let error = ''
+    if (/^\d+$/.test(port)) {
+      port = parseInt(port, 10)
+      if (port >= 1000 && port <= 65535) {
+        // valid port
+      } else {
+        error = 'Invalid Port!'
+      }
+    }
+
+    if (error) {
+      this.setState({errorPrompt: error})
+    } else {
+      this.props.dispatch({
+        type: 'global/connectToApp',
+        payload: { ip, port }
+      })
+    }
   }
 
   render() {
-    const { global: { connectError } } = this.props
+    const { global: { errorPrompt } } = this.props
     return (
         <div style={ wrapperStyle }>
           <main className="styleguide-sections" style={ { display: 'flex', justifyContent: 'center' } }>
@@ -83,8 +99,7 @@ export default class ConnectView extends PureComponent {
                     } } onClick={ this.tryConnectToApp }>Connect
                     </button>
                   </div>
-
-                  { connectError && <div style={ errorStyle }>{ connectError }</div> }
+                  { errorPrompt && <div style={ errorStyle }>{ errorPrompt }</div> }
                 </div>
               </div>
             </section>

@@ -1,6 +1,5 @@
 import axios from 'axios'
-import kHost from './constants'
 
-export async function fetch() {
-  return axios.get(`${kHost}/file/list`)
+export async function fetch({host}) {
+  return axios.get(`${host}/file/list`)
 }

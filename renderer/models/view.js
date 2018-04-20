@@ -1,5 +1,4 @@
 import { fetch, update} from '../services/view'
-import kHost from '../services/constants'
 
 function searchViewInfo(obj, id) {
   if (obj.id === id) {
@@ -33,16 +32,18 @@ export default {
   },
 
   effects: {
-    * getSnapshot({ payload }, { call, put }) {
-      const { data } = yield call(fetch)
+    * getSnapshot({ payload }, { call, put, select }) {
+      const host = yield select(({global}) => global.host)
+      const { data } = yield call(fetch, {host})
       yield put({
         type: 'saveSnapshot',
-        payload: data
+        payload: {data, host}
       })
     },
 
     * updateProperty({ payload }, { call, put }) {
-      const { data } = yield call(update, payload)
+      const host = yield select(({global}) => global.host)
+      const { data } = yield call(update, {host, payload})
       yield put({
         type: 'getSnapshot'
       })
@@ -51,8 +52,9 @@ export default {
 
   reducers: {
     saveSnapshot(state, { payload }) {
+      const {data, host} = payload
       const {selected} = state
-      const mainWindow = payload.windows[0]
+      const mainWindow = data.windows[0]
       let newSelected = selected
       if (selected.id) {
         newSelected = searchViewInfo(mainWindow, selected.id)
@@ -60,8 +62,8 @@ export default {
       return {
         ...state,
         selected: newSelected,
-        snapshot: payload,
-        previewImageURL: `url(${kHost}/preview?id=${mainWindow.id}&timestamp=${Date.now()})`
+        snapshot: data,
+        previewImageURL: `url(${host}/preview?id=${mainWindow.id}&timestamp=${Date.now()})`
       }
     },
 

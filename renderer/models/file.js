@@ -10,8 +10,9 @@ export default {
   },
 
   effects: {
-    * getFileHierarchy(_, { call, put }) {
-      const { data } = yield call(fetch)
+    * getFileHierarchy(_, { call, put, select }) {
+      const host = yield select(({global}) => global.host)
+      const { data } = yield call(fetch, {host})
       yield put({
         type: 'setFileHierarchy',
         payload: data
