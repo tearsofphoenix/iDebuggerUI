@@ -4,7 +4,7 @@ export default {
   namespace: 'file',
 
   state: {
-    tree: {},
+    tree: [],
     selected: {},
     openIDs: {}
   },
@@ -25,6 +25,22 @@ export default {
       return {
         ...state,
         tree: payload
+      }
+    },
+    selectFile(state, {payload}) {
+      const id = payload._NSURLPathKey
+      let { openIDs } = state
+      openIDs = { ...openIDs }
+      if (openIDs[id]) {
+        delete openIDs[id]
+      } else {
+        openIDs[id] = true
+      }
+
+      return {
+        ...state,
+        selected: payload,
+        openIDs
       }
     }
   }
