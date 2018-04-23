@@ -67,7 +67,6 @@ export default class Preview extends PureComponent {
         backgroundImage: previewImageURL,
         transform: `translate(0px, 0px) rotate(${rotate}deg) scale(${zoomScale})`
       }
-      console.log(71, mainWindowStyle)
       const mainView = mainWindow.views[0]
       return (<ride-pane>
         <Toolbar handleZoomIn={this.handleZoomIn} handleZoomOut={this.handleZoomOut}

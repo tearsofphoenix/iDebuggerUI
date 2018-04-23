@@ -47,7 +47,14 @@ export default class Inspector extends PureComponent {
         // convert to real value
         value = !checkBOOLValue(obj.value)
       }
+      const {ext = {}} = obj
+      const {scale} = ext
+      if (scale) {
+        console.log(53, scale)
+        value = Math.ceil(parseFloat(value) / scale)
+      }
     } else {
+      // for color
       value = event
     }
     this.props.dispatch({

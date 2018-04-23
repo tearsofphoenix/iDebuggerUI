@@ -94,7 +94,7 @@ export default class ConnectView extends PureComponent {
                       </div>
                     </div>
                   </div>
-                  <div className="block" style={ { textAlign: 'center', marginTop: 40 } }>
+                  <div className="block" style={ { textAlign: 'center', marginTop: 60, marginBottom: 21 } }>
                     <button className="btn btn-large" style={ {
                       color: '#bababa',
                       lineHeight: '2.6em',
