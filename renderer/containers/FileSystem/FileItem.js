@@ -21,8 +21,15 @@ export default (props) => {
     ext = array[array.length - 1]
   }
   const className = kMap[ext] || kMap['*']
-  return (<li className={ props.selectedID === id ? 'list-item selected' : 'list-item' }>
-        <span className={`icon ${className}`}>{ props.NSURLNameKey }</span>
+
+  const handleClick = (event) => {
+    event.preventDefault()
+    const { clickHandler, selectedID, openIDs, ...rest } = props
+    clickHandler(rest)
+  }
+  return (<li className={ props.selectedID === id ? 'list-item selected' : 'list-item' }
+              onClick={ handleClick }>
+        <span className={ `icon ${className}` }>{ props.NSURLNameKey }</span>
       </li>
   )
 }

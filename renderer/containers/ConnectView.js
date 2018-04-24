@@ -1,9 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'dva'
-import IP from 'ip'
 import IPut from '../components/iput/src/index.jsx'
-
-console.log(5, IP)
 
 const wrapperStyle = {
   display: 'flex',

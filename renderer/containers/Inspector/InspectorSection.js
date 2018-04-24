@@ -1,8 +1,8 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
-import {TextInput, RangeInput, NumberInput, ColorInput, Segment, Select, Checkbox, Toggle} from '../components/Controls'
-import {SizeInput, PointInput} from '../components/NumberPairInput'
-import RectInput from '../components/RectInput'
+import {TextInput, RangeInput, NumberInput, ColorInput, Segment, Select, Checkbox, Toggle} from '../../components/Controls'
+import {SizeInput, PointInput} from '../../components/NumberPairInput'
+import RectInput from '../../components/RectInput'
 
 const kMap = {
   CGRect: RectInput,

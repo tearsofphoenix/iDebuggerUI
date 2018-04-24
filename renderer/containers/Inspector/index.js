@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'dva'
 import { SketchPicker } from 'react-color'
 import InspectorSection from './InspectorSection'
-import { checkBOOLValue } from '../utils/convert'
+import { checkBOOLValue } from '../../utils/convert'
 
 @connect(({ view, app }) => ({ view, app }))
 export default class Inspector extends PureComponent {

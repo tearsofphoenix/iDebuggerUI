@@ -31,10 +31,7 @@ export default class DirectoryItem extends PureComponent {
 
     const id = this.props._NSURLPathKey
     let item = (
-        <div
-            className="list-item"
-            onClick={ this._handleClick }
-        >
+        <div className="list-item" onClick={ this._handleClick }>
           <span className="icon icon-file-directory">{ this.props.NSURLNameKey }</span>
         </div>)
     const opened = openIDs[id]

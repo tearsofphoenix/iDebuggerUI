@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'dva'
-import Toolbar from './Toolbar'
-import ViewNode from './ViewTree/ViewNode'
+import Toolbar from '../Toolbar'
+import ViewNode from '../ViewTree/ViewNode'
 
 @connect(({ view }) => ({ view }))
-export default class Preview extends PureComponent {
+export default class ViewPreview extends PureComponent {
   constructor(props, context) {
     super(props, context)
     this.state = {

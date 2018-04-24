@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'dva'
-import { Select } from '../components/Controls'
-import Empty from '../components/Empty'
-import ViewTree from './ViewTree'
-import FileTree from './FileSystem'
+import { Select } from '../../components/Controls'
+import Empty from '../../components/Empty'
+import ViewTree from './../ViewTree'
+import FileTree from './../FileSystem'
 
 const selectStyle = {
   border: 'unset',

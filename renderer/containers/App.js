@@ -1,10 +1,10 @@
 import React from 'react'
 import {connect} from 'dva'
-import TreeContainer from './TreeContainer'
+import TreeContainer from './Core/TreeContainer'
 import ViewTree from './ViewTree'
 import Preview from './Preview'
 import Inspector from './Inspector'
-import ToolWindow from './ToolWindow'
+import ToolWindow from './Core/ToolWindow'
 
 import DeletePrompt from '../components/DeletePrompt';
 import MockComponentTree from '../components/MockComponentTree';
