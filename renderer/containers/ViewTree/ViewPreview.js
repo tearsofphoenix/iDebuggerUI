@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'dva'
-import Toolbar from '../Toolbar'
-import ViewNode from '../ViewTree/ViewNode'
+import Toolbar from './Toolbar'
+import ViewNode from './ViewNode'
 
 @connect(({ view }) => ({ view }))
 export default class ViewPreview extends PureComponent {

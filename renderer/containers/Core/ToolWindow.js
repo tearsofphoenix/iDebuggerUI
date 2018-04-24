@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import Terminal from '../Terminal'
-import System from '../System'
+import Terminal from '../../plugins/Terminal'
+import System from '../../plugins/System'
 import TabContainer from '../../components/TabContainer'
 
 export default class ToolWindow extends PureComponent {

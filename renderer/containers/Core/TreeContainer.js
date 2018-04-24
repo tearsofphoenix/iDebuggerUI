@@ -2,18 +2,11 @@ import React, { PureComponent } from 'react'
 import { connect } from 'dva'
 import { Select } from '../../components/Controls'
 import Empty from '../../components/Empty'
-import ViewTree from './../ViewTree'
-import FileTree from './../FileSystem'
 
 const selectStyle = {
   border: 'unset',
   borderRadius: 'unset',
   background: 'transparent'
-}
-
-const kViewMap = {
-  Views: ViewTree,
-  Files: FileTree
 }
 
 @connect(({ global }) => ({ global }))
@@ -35,14 +28,13 @@ export default class TreeContainer extends PureComponent {
   }
 
   render() {
-    const options = ['Views', 'Files', 'Frameworks']
-    const { global: { currentCategory } } = this.props
-    const Cls = kViewMap[currentCategory] || Empty
+    const { global: { currentCategory, categoryNames } } = this.props
+    const Cls = currentCategory.tree || Empty
     return (<div className="item-views">
       <div className="styleguide pane-item">
         <header className="styleguide-header" style={ { display: 'flex', justifyContent: 'space-between', height: '32px' } }>
           <div style={{display: 'flex', alignItems: 'center'}}>
-            <Select options={ options } selectStyle={ selectStyle } onChange={ this.handleSelect } />
+            <Select options={ categoryNames } selectStyle={ selectStyle } onChange={ this.handleSelect } />
           </div>
           <div style={ { display: 'flex', alignItems: 'center' } }>
             <div className="icon-primitive-dot idg-toolbar-icon" onClick={ this.expandTree } />

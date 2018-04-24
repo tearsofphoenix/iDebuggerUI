@@ -1,17 +1,26 @@
 import { connectApp } from '../services/global'
+import FileSystem from '../containers/FileSystem'
+import ViewTree from '../containers/ViewTree'
+
+const categories = {}
+categories[FileSystem.category] = FileSystem
+categories[ViewTree.category] = ViewTree
+
+const categoryNames = [ViewTree.category, FileSystem.category]
 
 export default {
   namespace: 'global',
 
   state: {
-    currentCategory: 'Views',
+    currentCategory: ViewTree,
+    categories,
+    categoryNames,
     host: null,
     connectError: null
   },
 
   effects: {
     * connectToApp({ payload }, { call, put }) {
-      console.log(17)
       const { data } = yield call(connectApp, payload)
       if (data.code === 1000) {
         yield put({
@@ -28,15 +37,14 @@ export default {
 
   reducers: {
     setCurrentCategory(state, { payload }) {
-      console.log(34)
+      const currentCategory = categories[payload]
       return {
         ...state,
-        currentCategory: payload
+        currentCategory
       }
     },
 
     didConnectApp(state, { payload }) {
-      console.log(42)
       if (payload) {
         const { ip, port } = payload
         const host = `http://${ip}:${port}`
