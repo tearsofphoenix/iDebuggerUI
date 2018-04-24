@@ -20,6 +20,7 @@
     "electron-debug": "^1.1.0",
     "electron-localshortcut": "^1.1.0",
     "fs": "0.0.1-security",
+    "moment": "^2.22.1",
     "path": "^0.12.7",
     "prop-types": "^15.5.8",
     "react": "^15.4.2",
