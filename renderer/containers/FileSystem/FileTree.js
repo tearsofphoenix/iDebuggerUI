@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'dva'
+import swal from 'sweetalert2'
 import DirectoryItem from './DirectoryItem'
 import Empty from '../../components/Empty'
 
@@ -8,6 +9,71 @@ import Empty from '../../components/Empty'
 export default class FileTree extends PureComponent {
   static propTypes = {
     view: PropTypes.any
+  }
+
+  static childContextTypes = {
+    synchronizeFolder: PropTypes.func,
+    downloadFile: PropTypes.func,
+    renameFile: PropTypes.func,
+    deleteFile: PropTypes.func
+  }
+
+  getChildContext() {
+    return {
+      synchronizeFolder: this.synchronizeFolder,
+      downloadFile: this.downloadFile,
+      renameFile: this.renameFile,
+      deleteFile: this.deleteFile
+    }
+  }
+
+  synchronizeFolder = (arg) => {
+    // TODO
+    this.props.dispatch({
+      type: 'file/getFileHierarchy',
+      payload: arg
+    })
+  }
+
+  downloadFile = (arg) => {
+
+  }
+
+  renameFile = (arg) => {
+    console.log(43, arg, swal)
+    swal({
+      title: 'New name of file',
+      input: 'text',
+      showCancelButton: true,
+      confirmButtonText: 'Submit',
+      allowOutsideClick: () => !swal.isLoading()
+    }).then((result) => {
+      if (result.value) {
+        this.props.dispatch({
+          type: 'file/renameFile',
+          payload: arg
+        })
+      }
+    })
+  }
+
+  deleteFile = (arg) => {
+    swal({
+      title: 'Are you sure to Delete the file?',
+      text: 'The file will be permanently removed.',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Delete'
+    }).then((result) => {
+      if (result.value) {
+        this.props.dispath({
+          type: 'file/deleteFile',
+          payload: arg
+        })
+      }
+    })
   }
 
   componentWillMount() {

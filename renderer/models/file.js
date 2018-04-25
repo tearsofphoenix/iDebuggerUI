@@ -1,4 +1,4 @@
-import { fetch } from '../services/file'
+import { fetch, deleteFileRequest, renameFileRequest } from '../services/file'
 
 export default {
   namespace: 'file',
@@ -17,6 +17,16 @@ export default {
         type: 'setFileHierarchy',
         payload: data
       })
+    },
+
+    * deleteFile({payload}, {call, put, select}) {
+      const host = yield select(({global}) => global.host)
+      yield call(deleteFileRequest, {host, payload})
+    },
+
+    *renameFile({payload}, {call, put, select}) {
+      const host = yield select(({global}) => global.host)
+      yield call(renameFileRequest, {host, payload})
     }
   },
 

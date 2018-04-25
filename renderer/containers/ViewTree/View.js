@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import octicons from 'octicons'
 
 export default class View extends PureComponent {
   static propTypes = {
@@ -31,11 +32,8 @@ export default class View extends PureComponent {
     }
 
     let item = (
-        <div
-            className="list-item"
-            onClick={ this._handleClick }
-        >
-          <span className="icon icon-file-directory">{ this.props.class }</span>
+        <div className="list-item" onClick={ this._handleClick }>
+          <span className="icon icon-browser">{ this.props.class }</span>
         </div>)
     const opened = openIDs[id]
     if (opened) {

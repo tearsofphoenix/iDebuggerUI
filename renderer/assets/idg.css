@@ -109,3 +109,34 @@
 .pg-viewer-wrapper {
     width: 100%;
 }
+
+.react-contextmenu-wrapper {
+    display: inline-block;
+}
+
+.react-contextmenu {
+    background: #2d2f31;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px #000;
+}
+
+.react-contextmenu-item {
+    font-size: 12px;
+    line-height: 1.1em;
+    padding: 0.8em 12px;
+    min-width: 120px;
+    color: #C0C0B3;
+}
+
+.react-contextmenu-item:hover {
+    background: #0f87f0;
+    color: white;
+}
+
+.react-contextmenu-item--divider {
+    padding: .5em 0 0 !important;
+    margin-bottom: .5em;
+    width: 100%;
+    border-bottom: 1px solid #bbb;
+    opacity: 0.4;
+}

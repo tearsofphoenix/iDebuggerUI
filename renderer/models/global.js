@@ -15,7 +15,7 @@ export default {
     currentCategory: ViewTree,
     categories,
     categoryNames,
-    host: null,
+    host: 'http://127.0.0.1:9449',
     connectError: null
   },
 

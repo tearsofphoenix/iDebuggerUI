@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu"
+import PropTypes from 'prop-types'
 
 const kMap = {
   txt: 'icon-file-text',
@@ -12,24 +14,64 @@ const kMap = {
   '*': 'icon-file-binary'
 }
 
-export default (props) => {
-  const id = props._NSURLPathKey
-  const name = props.NSURLNameKey
-  const array = name.split('.')
-  let ext = 'txt'
-  if (array.length > 1) {
-    ext = array[array.length - 1]
+export default class FileItem extends PureComponent {
+  static contextTypes = {
+    downloadFile: PropTypes.func,
+    renameFile: PropTypes.func,
+    deleteFile: PropTypes.func
   }
-  const className = kMap[ext] || kMap['*']
 
-  const handleClick = (event) => {
+  handleClick = (event) => {
     event.preventDefault()
-    const { clickHandler, selectedID, openIDs, ...rest } = props
+    const { clickHandler, selectedID, openIDs, ...rest } = this.props
     clickHandler(rest)
   }
-  return (<li className={ props.selectedID === id ? 'list-item selected' : 'list-item' }
-              onClick={ handleClick }>
-        <span className={ `icon ${className}` }>{ props.NSURLNameKey }</span>
-      </li>
-  )
+
+  _handleDownload = () => {
+    const { clickHandler, selectedID, openIDs, ...rest } = this.props
+    this.context.downloadFile(rest)
+  }
+
+  _handleRename = () => {
+    console.log(36, this.context)
+    const { clickHandler, selectedID, openIDs, ...rest } = this.props
+    this.context.renameFile(rest)
+  }
+
+  _handleDelete = () => {
+    const { clickHandler, selectedID, openIDs, ...rest } = this.props
+    this.context.deleteFile(rest)
+  }
+
+  render() {
+    const id = this.props._NSURLPathKey
+    const name = this.props.NSURLNameKey
+    const array = name.split('.')
+    let ext = 'txt'
+    if (array.length > 1) {
+      ext = array[array.length - 1]
+    }
+    const className = kMap[ext] || kMap['*']
+
+    return (<li className={ this.props.selectedID === id ? 'list-item selected' : 'list-item' }
+                onClick={ this.handleClick }>
+          <ContextMenuTrigger id="idg-directory-contextmenu">
+            <span className={ `icon ${className}` }>{ name }</span>
+          </ContextMenuTrigger>
+
+          <ContextMenu id="idg-directory-contextmenu">
+            <MenuItem onClick={ this._handleDownload }>
+              Download
+            </MenuItem>
+            <MenuItem onClick={ this._handleRename }>
+              Rename
+            </MenuItem>
+            <MenuItem divider />
+            <MenuItem onClick={ this._handleDelete }>
+              Delete
+            </MenuItem>
+          </ContextMenu>
+        </li>
+    )
+  }
 }

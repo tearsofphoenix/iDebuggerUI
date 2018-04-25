@@ -38,7 +38,7 @@ export default class Inspector extends PureComponent {
                   <div className="block" style={{display: 'flex'}}>
                     <div className="control-wrap">
                       <div className="label">Create Date</div>
-                      <div>{moment(selected.NSURLCreationDateKey).format('YYYY-MM-DD HH:mm:ss')}</div>
+                      <div>{moment(selected.NSURLCreationDateKey * 1000).format('YYYY-MM-DD HH:mm:ss')}</div>
                     </div>
                   </div>
                 </div>

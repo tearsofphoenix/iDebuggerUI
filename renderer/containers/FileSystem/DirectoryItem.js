@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu"
 import FileItem from './FileItem'
 
 export default class DirectoryItem extends PureComponent {
@@ -10,10 +11,37 @@ export default class DirectoryItem extends PureComponent {
     clickHandler: PropTypes.func
   }
 
+  static contextTypes = {
+    synchronizeFolder: PropTypes.func,
+    downloadFile: PropTypes.func,
+    renameFile: PropTypes.func,
+    deleteFile: PropTypes.func
+  }
+
   _handleClick = (event) => {
     event.preventDefault()
     const { clickHandler, selectedID, openIDs, ...rest } = this.props
     this.props.clickHandler(rest)
+  }
+
+  _handleSynchronize = () => {
+    const { clickHandler, selectedID, openIDs, ...rest } = this.props
+    this.context.synchronizeFolder(rest)
+  }
+
+  _handleDownload = () => {
+    const { clickHandler, selectedID, openIDs, ...rest } = this.props
+    this.context.downloadFile(rest)
+  }
+
+  _handleRename = () => {
+    const { clickHandler, selectedID, openIDs, ...rest } = this.props
+    this.context.renameFile(rest)
+  }
+
+  _handleDelete = () => {
+    const { clickHandler, selectedID, openIDs, ...rest } = this.props
+    this.context.deleteFile(rest)
   }
 
   render() {
@@ -32,7 +60,25 @@ export default class DirectoryItem extends PureComponent {
     const id = this.props._NSURLPathKey
     let item = (
         <div className="list-item" onClick={ this._handleClick }>
-          <span className="icon icon-file-directory">{ this.props.NSURLNameKey }</span>
+          <ContextMenuTrigger id="idg-directory-contextmenu">
+            <span className="icon icon-file-directory">{ this.props.NSURLNameKey }</span>
+          </ContextMenuTrigger>
+
+          <ContextMenu id="idg-directory-contextmenu">
+            <MenuItem onClick={this._handleSynchronize}>
+              Synchronize
+            </MenuItem>
+            <MenuItem onClick={this._handleDownload}>
+              Download
+            </MenuItem>
+            <MenuItem onClick={this._handleRename}>
+              Rename
+            </MenuItem>
+            <MenuItem divider />
+            <MenuItem onClick={this._handleDelete}>
+              Delete
+            </MenuItem>
+          </ContextMenu>
         </div>)
     const opened = openIDs[id]
     if (opened) {
@@ -46,9 +92,7 @@ export default class DirectoryItem extends PureComponent {
       )
     } else {
       return (
-          <li
-              className={ selectedID === id ? 'list-nested-item collapsed selected' : 'list-nested-item collapsed' }
-          >
+          <li className={ selectedID === id ? 'list-nested-item collapsed selected' : 'list-nested-item collapsed' }>
             { item }
           </li>
       )
