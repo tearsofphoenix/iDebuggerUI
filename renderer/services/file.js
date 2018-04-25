@@ -5,7 +5,7 @@ export async function fetch({host}) {
 }
 
 export async function deleteFileRequest({host, payload}) {
-  return axios.delete(`${host}/file/delete`, payload)
+  return axios.post(`${host}/file/remove`, payload)
 }
 
 export async function renameFileRequest({host, payload}) {

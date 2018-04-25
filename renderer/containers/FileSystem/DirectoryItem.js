@@ -15,33 +15,21 @@ export default class DirectoryItem extends PureComponent {
     synchronizeFolder: PropTypes.func,
     downloadFile: PropTypes.func,
     renameFile: PropTypes.func,
-    deleteFile: PropTypes.func
+    deleteFile: PropTypes.func,
+    showContextMenu: PropTypes.func,
+    hideContextMenu: PropTypes.func
   }
 
   _handleClick = (event) => {
     event.preventDefault()
+    this.context.hideContextMenu()
     const { clickHandler, selectedID, openIDs, ...rest } = this.props
     this.props.clickHandler(rest)
   }
 
-  _handleSynchronize = () => {
+  showContextMenu = (event) => {
     const { clickHandler, selectedID, openIDs, ...rest } = this.props
-    this.context.synchronizeFolder(rest)
-  }
-
-  _handleDownload = () => {
-    const { clickHandler, selectedID, openIDs, ...rest } = this.props
-    this.context.downloadFile(rest)
-  }
-
-  _handleRename = () => {
-    const { clickHandler, selectedID, openIDs, ...rest } = this.props
-    this.context.renameFile(rest)
-  }
-
-  _handleDelete = () => {
-    const { clickHandler, selectedID, openIDs, ...rest } = this.props
-    this.context.deleteFile(rest)
+    this.context.showContextMenu(event, rest)
   }
 
   render() {
@@ -59,26 +47,8 @@ export default class DirectoryItem extends PureComponent {
 
     const id = this.props._NSURLPathKey
     let item = (
-        <div className="list-item" onClick={ this._handleClick }>
-          <ContextMenuTrigger id="idg-directory-contextmenu">
+        <div className="list-item" onClick={ this._handleClick } onContextMenu={this.showContextMenu}>
             <span className="icon icon-file-directory">{ this.props.NSURLNameKey }</span>
-          </ContextMenuTrigger>
-
-          <ContextMenu id="idg-directory-contextmenu">
-            <MenuItem onClick={this._handleSynchronize}>
-              Synchronize
-            </MenuItem>
-            <MenuItem onClick={this._handleDownload}>
-              Download
-            </MenuItem>
-            <MenuItem onClick={this._handleRename}>
-              Rename
-            </MenuItem>
-            <MenuItem divider />
-            <MenuItem onClick={this._handleDelete}>
-              Delete
-            </MenuItem>
-          </ContextMenu>
         </div>)
     const opened = openIDs[id]
     if (opened) {

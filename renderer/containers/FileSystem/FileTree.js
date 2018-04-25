@@ -15,7 +15,9 @@ export default class FileTree extends PureComponent {
     synchronizeFolder: PropTypes.func,
     downloadFile: PropTypes.func,
     renameFile: PropTypes.func,
-    deleteFile: PropTypes.func
+    deleteFile: PropTypes.func,
+    showContextMenu: PropTypes.func,
+    hideContextMenu: PropTypes.func
   }
 
   getChildContext() {
@@ -23,20 +25,28 @@ export default class FileTree extends PureComponent {
       synchronizeFolder: this.synchronizeFolder,
       downloadFile: this.downloadFile,
       renameFile: this.renameFile,
-      deleteFile: this.deleteFile
+      deleteFile: this.deleteFile,
+      showContextMenu: this.showContextMenu,
+      hideContextMenu: this.hideContextMenu
     }
+  }
+
+  constructor() {
+    super()
+    this.state = { showContextMenu: false }
   }
 
   synchronizeFolder = (arg) => {
     // TODO
+    const {contextTarget} = this.state
     this.props.dispatch({
       type: 'file/getFileHierarchy',
-      payload: arg
+      payload: contextTarget
     })
   }
 
   downloadFile = (arg) => {
-
+    // TODO
   }
 
   renameFile = (arg) => {
@@ -49,9 +59,13 @@ export default class FileTree extends PureComponent {
       allowOutsideClick: () => !swal.isLoading()
     }).then((result) => {
       if (result.value) {
+        const {contextTarget} = this.state
         this.props.dispatch({
           type: 'file/renameFile',
-          payload: arg
+          payload: {
+            file: contextTarget,
+            name: result.value
+          }
         })
       }
     })
@@ -68,9 +82,10 @@ export default class FileTree extends PureComponent {
       confirmButtonText: 'Delete'
     }).then((result) => {
       if (result.value) {
-        this.props.dispath({
+        const {contextTarget} = this.state
+        this.props.dispatch({
           type: 'file/deleteFile',
-          payload: arg
+          payload: contextTarget
         })
       }
     })
@@ -88,9 +103,74 @@ export default class FileTree extends PureComponent {
       payload: args
     })
   }
+  showContextMenu = (event, target) => {
+    event.preventDefault()
+    this.setState({
+      showContextMenu: true,
+      contextTarget: target,
+      contextRect:
+          {
+        left: event.pageX,
+        top: event.pageY
+      }
+    })
+  }
+
+  hideContextMenu = (event) => {
+    event && event.preventDefault()
+    this.setState({ showContextMenu: false })
+  }
+
+  renderContextMenu = () => {
+    const { contextRect } = this.state
+    const style = {
+      position: 'fixed',
+      opacity: 1, pointerEvents: 'auto',
+      top: contextRect.top,
+      left: contextRect.left
+    }
+    const items = [
+      {
+        name: 'Synchronize',
+        action: this.synchronizeFolder
+      },
+      {
+        name: 'Download',
+        action: this.downloadFile
+      },
+      {
+        name: 'Rename',
+        action: this.renameFile
+      },
+      {
+        divider: true
+      },
+      {
+        name: 'Delete',
+        action: this.deleteFile
+      }
+    ]
+    return (<nav role="menu" tabIndex="-1"
+                 className="react-contextmenu react-contextmenu--visible"
+                 style={ style }
+                 onBlur={ this.hideContextMenu }>
+      {
+        items.map((looper, idx) => {
+          if (looper.divider) {
+            return (<div key={idx} className="react-contextmenu-item react-contextmenu-item--divider" role="menuitem"
+                         tabIndex="-1" aria-disabled="false" aria-orientation="horizontal" />)
+          } else {
+            return (<div key={idx} className="react-contextmenu-item" role="menuitem" tabIndex="-1" aria-disabled="false"
+                         onClick={looper.action}>{looper.name}</div>)
+          }
+        })
+      }
+    </nav>)
+  }
 
   render() {
     const { file: { tree, selected, openIDs } } = this.props
+    const { showContextMenu} = this.state
     let content = null
     if (tree) {
       content = (<div className="tree-view-resizer tool-panel">
@@ -103,6 +183,7 @@ export default class FileTree extends PureComponent {
             }
 
           </ul>
+          { showContextMenu && this.renderContextMenu() }
         </div>
         <div className="tree-view-resize-handle" />
       </div>)

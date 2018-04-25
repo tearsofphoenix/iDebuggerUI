@@ -18,31 +18,22 @@ export default class FileItem extends PureComponent {
   static contextTypes = {
     downloadFile: PropTypes.func,
     renameFile: PropTypes.func,
-    deleteFile: PropTypes.func
+    deleteFile: PropTypes.func,
+    showContextMenu: PropTypes.func,
+    hideContextMenu: PropTypes.func
   }
 
   handleClick = (event) => {
     event.preventDefault()
+    this.context.hideContextMenu()
     const { clickHandler, selectedID, openIDs, ...rest } = this.props
     clickHandler(rest)
   }
 
-  _handleDownload = () => {
+  showContextMenu = (event) => {
     const { clickHandler, selectedID, openIDs, ...rest } = this.props
-    this.context.downloadFile(rest)
+    this.context.showContextMenu(event, rest)
   }
-
-  _handleRename = () => {
-    console.log(36, this.context)
-    const { clickHandler, selectedID, openIDs, ...rest } = this.props
-    this.context.renameFile(rest)
-  }
-
-  _handleDelete = () => {
-    const { clickHandler, selectedID, openIDs, ...rest } = this.props
-    this.context.deleteFile(rest)
-  }
-
   render() {
     const id = this.props._NSURLPathKey
     const name = this.props.NSURLNameKey
@@ -54,23 +45,8 @@ export default class FileItem extends PureComponent {
     const className = kMap[ext] || kMap['*']
 
     return (<li className={ this.props.selectedID === id ? 'list-item selected' : 'list-item' }
-                onClick={ this.handleClick }>
-          <ContextMenuTrigger id="idg-directory-contextmenu">
+                onClick={ this.handleClick } onContextMenu={this.showContextMenu}>
             <span className={ `icon ${className}` }>{ name }</span>
-          </ContextMenuTrigger>
-
-          <ContextMenu id="idg-directory-contextmenu">
-            <MenuItem onClick={ this._handleDownload }>
-              Download
-            </MenuItem>
-            <MenuItem onClick={ this._handleRename }>
-              Rename
-            </MenuItem>
-            <MenuItem divider />
-            <MenuItem onClick={ this._handleDelete }>
-              Delete
-            </MenuItem>
-          </ContextMenu>
         </li>
     )
   }
