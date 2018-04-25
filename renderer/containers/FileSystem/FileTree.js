@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'dva'
 import swal from 'sweetalert2'
+
+const { dialog } = require('electron').remote
 import DirectoryItem from './DirectoryItem'
 import Empty from '../../components/Empty'
 
@@ -38,7 +40,7 @@ export default class FileTree extends PureComponent {
 
   synchronizeFolder = (arg) => {
     // TODO
-    const {contextTarget} = this.state
+    const { contextTarget } = this.state
     this.props.dispatch({
       type: 'file/getFileHierarchy',
       payload: contextTarget
@@ -47,6 +49,19 @@ export default class FileTree extends PureComponent {
 
   downloadFile = (arg) => {
     // TODO
+    dialog.showSaveDialog({
+          title: 'Save file'
+        },
+        filename => {
+          const { contextTarget } = this.state
+          this.props.dispatch({
+            type: 'file/downloadFile',
+            payload: {
+              file: contextTarget,
+              path: filename
+            }
+          })
+        })
   }
 
   renameFile = (arg) => {
@@ -59,7 +74,7 @@ export default class FileTree extends PureComponent {
       allowOutsideClick: () => !swal.isLoading()
     }).then((result) => {
       if (result.value) {
-        const {contextTarget} = this.state
+        const { contextTarget } = this.state
         this.props.dispatch({
           type: 'file/renameFile',
           payload: {
@@ -82,7 +97,7 @@ export default class FileTree extends PureComponent {
       confirmButtonText: 'Delete'
     }).then((result) => {
       if (result.value) {
-        const {contextTarget} = this.state
+        const { contextTarget } = this.state
         this.props.dispatch({
           type: 'file/deleteFile',
           payload: contextTarget
@@ -110,9 +125,9 @@ export default class FileTree extends PureComponent {
       contextTarget: target,
       contextRect:
           {
-        left: event.pageX,
-        top: event.pageY
-      }
+            left: event.pageX,
+            top: event.pageY
+          }
     })
   }
 
@@ -157,11 +172,12 @@ export default class FileTree extends PureComponent {
       {
         items.map((looper, idx) => {
           if (looper.divider) {
-            return (<div key={idx} className="react-contextmenu-item react-contextmenu-item--divider" role="menuitem"
+            return (<div key={ idx } className="react-contextmenu-item react-contextmenu-item--divider" role="menuitem"
                          tabIndex="-1" aria-disabled="false" aria-orientation="horizontal" />)
           } else {
-            return (<div key={idx} className="react-contextmenu-item" role="menuitem" tabIndex="-1" aria-disabled="false"
-                         onClick={looper.action}>{looper.name}</div>)
+            return (
+                <div key={ idx } className="react-contextmenu-item" role="menuitem" tabIndex="-1" aria-disabled="false"
+                     onClick={ looper.action }>{ looper.name }</div>)
           }
         })
       }
@@ -170,7 +186,7 @@ export default class FileTree extends PureComponent {
 
   render() {
     const { file: { tree, selected, openIDs } } = this.props
-    const { showContextMenu} = this.state
+    const { showContextMenu } = this.state
     let content = null
     if (tree) {
       content = (<div className="tree-view-resizer tool-panel">

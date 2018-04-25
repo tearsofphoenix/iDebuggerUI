@@ -11,3 +11,7 @@ export async function deleteFileRequest({host, payload}) {
 export async function renameFileRequest({host, payload}) {
   return axios.post(`${host}/file/rename`, payload)
 }
+
+export async function downloadFile({host, file}) {
+  return axios.post(`${host}/file/download`, file)
+}

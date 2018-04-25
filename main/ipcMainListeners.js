@@ -27,4 +27,10 @@ module.exports = () => {
   ipcMain.on('rename', (event, itemPath, newName) => {
     fs.rename(itemPath, path.join(path.dirname(itemPath), newName));
   });
+
+  ipcMain.on('save-file', (event, {data, path}) => {
+    if (fs.writeFileSync(path, data)) {
+      console.log('save file ok!')
+    }
+  })
 };

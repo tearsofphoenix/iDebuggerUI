@@ -1,4 +1,5 @@
-import { fetch, deleteFileRequest, renameFileRequest } from '../services/file'
+import { fetch, deleteFileRequest, renameFileRequest, downloadFile } from '../services/file'
+import {ipcRenderer} from 'electron'
 
 export default {
   namespace: 'file',
@@ -11,22 +12,28 @@ export default {
 
   effects: {
     * getFileHierarchy(_, { call, put, select }) {
-      const host = yield select(({global}) => global.host)
-      const { data } = yield call(fetch, {host})
+      const host = yield select(({ global }) => global.host)
+      const { data } = yield call(fetch, { host })
       yield put({
         type: 'setFileHierarchy',
         payload: data
       })
     },
 
-    * deleteFile({payload}, {call, put, select}) {
-      const host = yield select(({global}) => global.host)
-      yield call(deleteFileRequest, {host, payload})
+    * downloadFile({ payload }, { call, put, select }) {
+      const host = yield select(({ global }) => global.host)
+      const { data } = yield call(downloadFile, { host, file: payload.file })
+      ipcRenderer.send('save-file', {data, path: payload.path})
     },
 
-    *renameFile({payload}, {call, put, select}) {
-      const host = yield select(({global}) => global.host)
-      yield call(renameFileRequest, {host, payload})
+    * deleteFile({ payload }, { call, put, select }) {
+      const host = yield select(({ global }) => global.host)
+      yield call(deleteFileRequest, { host, payload })
+    },
+
+    * renameFile({ payload }, { call, put, select }) {
+      const host = yield select(({ global }) => global.host)
+      yield call(renameFileRequest, { host, payload })
     }
   },
 
@@ -37,7 +44,7 @@ export default {
         tree: payload
       }
     },
-    selectFile(state, {payload}) {
+    selectFile(state, { payload }) {
       const id = payload._NSURLPathKey
       let { openIDs } = state
       openIDs = { ...openIDs }
