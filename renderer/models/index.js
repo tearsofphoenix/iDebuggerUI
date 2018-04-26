@@ -4,6 +4,7 @@ import pluginModel from './plugin'
 import globalModel from './global'
 import systemModel from './system'
 import appModel from './app'
+import networkModel from './network'
 
 export default (app) => {
   app.model(viewModel)
@@ -12,4 +13,5 @@ export default (app) => {
   app.model(globalModel)
   app.model(systemModel)
   app.model(appModel)
+  app.model(networkModel)
 }

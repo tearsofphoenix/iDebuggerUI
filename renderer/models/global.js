@@ -1,12 +1,14 @@
 import { connectApp } from '../services/global'
 import FileSystem from '../containers/FileSystem'
 import ViewTree from '../containers/ViewTree'
+import Network from '../containers/Network'
 
 const categories = {}
 categories[FileSystem.category] = FileSystem
 categories[ViewTree.category] = ViewTree
+categories[Network.category] = Network
 
-const categoryNames = [ViewTree.category, FileSystem.category]
+const categoryNames = [ViewTree.category, FileSystem.category, Network.category]
 
 export default {
   namespace: 'global',

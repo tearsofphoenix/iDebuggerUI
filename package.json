@@ -30,6 +30,7 @@
     "react-contextmenu": "^2.9.2",
     "react-dom": "^15.4.2",
     "react-file-viewer": "^0.4.0",
+    "react-json-view": "^1.16.1",
     "react-redux": "^5.0.7",
     "react-split-pane": "^0.1.77",
     "recharts": "^1.0.0-beta.10",

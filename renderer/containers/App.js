@@ -3,7 +3,6 @@ import { connect } from 'dva'
 import TreeContainer from './Core/TreeContainer'
 import ToolWindow from './Core/ToolWindow'
 
-import DeletePrompt from '../components/DeletePrompt';
 import MockComponentTree from '../components/MockComponentTree';
 import ConnectView from './ConnectView'
 
@@ -35,7 +34,7 @@ export default class App extends React.Component {
                 <ride-pane-resize-handle className="horizontal" />
 
                 <ride-pane style={ { flexGrow: 0, flexBasis: '300px', height: 'calc(100% - 24px)' } }>
-                  <Inspector />
+                  {Inspector && <Inspector />}
                 </ride-pane>
 
               </ride-pane-axis>
