@@ -47,21 +47,14 @@ export default class FileTree extends PureComponent {
     })
   }
 
-  downloadFile = (arg) => {
-    // TODO
-    dialog.showSaveDialog({
-          title: 'Save file'
-        },
-        filename => {
-          const { contextTarget } = this.state
-          this.props.dispatch({
-            type: 'file/downloadFile',
-            payload: {
-              file: contextTarget,
-              path: filename
-            }
-          })
-        })
+  downloadFile = () => {
+    const { contextTarget } = this.state
+    this.props.dispatch({
+      type: 'file/downloadFile',
+      payload: {
+        file: contextTarget
+      }
+    })
   }
 
   renameFile = (arg) => {

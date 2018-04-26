@@ -13,5 +13,10 @@ export async function renameFileRequest({host, payload}) {
 }
 
 export async function downloadFile({host, file}) {
-  return axios.post(`${host}/file/download`, file)
+  return axios({
+    url: `${host}/file/download`,
+    method: 'post',
+    responseType: 'blob',
+    data: file
+  })
 }

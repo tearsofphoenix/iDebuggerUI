@@ -1,5 +1,6 @@
 import { fetch, deleteFileRequest, renameFileRequest, downloadFile } from '../services/file'
-import {ipcRenderer} from 'electron'
+import {pathExtension} from '../utils/shared'
+import download from 'downloadjs'
 
 export default {
   namespace: 'file',
@@ -22,8 +23,9 @@ export default {
 
     * downloadFile({ payload }, { call, put, select }) {
       const host = yield select(({ global }) => global.host)
-      const { data } = yield call(downloadFile, { host, file: payload.file })
-      ipcRenderer.send('save-file', {data, path: payload.path})
+      const {file} = payload
+      const { data } = yield call(downloadFile, { host, file})
+      download(data, pathExtension(file._NSURLPathKey))
     },
 
     * deleteFile({ payload }, { call, put, select }) {
