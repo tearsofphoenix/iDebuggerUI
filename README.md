@@ -7,7 +7,7 @@ word, the full view of the entire iOS app is all in the debugger.
 
 ##
 <p align="center">
-  <img src="https://raw.githubusercontent.com/tearsofphoenix/iDebuggerUI/master/doc/screenshot.js">
+  <img src="https://raw.githubusercontent.com/tearsofphoenix/iDebuggerUI/master/doc/screenshot.png">
 </p>
 
 ## How it works?
